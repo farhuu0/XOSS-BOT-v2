@@ -1,0 +1,69 @@
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+module.exports = {
+config: {
+  name: "owner",
+  aurthor:"Tokodori",// edited by farhan  
+   role: 0,
+  shortDescription: " ",
+  longDescription: "",
+  category: "admin",
+  guide: "{pn}"
+},
+
+  onStart: async function ({ api, event }) {
+  try {
+    const ownerInfo = {
+      name: 'Fʌʀʜʌŋ  💝👽',
+      choise: 'Only Russian 🥵🔥',
+      habit: 'Playing Free Fire 🔥',
+      gender: 'Male',
+      age: '17+',
+      height: '5:11',
+      facebookLink: 'https://www.facebook.com/farhuu.2.0',
+      nick: 'Fʌʀʜʋʋ  💫🔥'
+    };
+
+    const bold = 'https://files.catbox.moe/tt65hq.mp4'; // Replace with your Google Drive videoid link https://drive.google.com/uc?export=download&id=here put your video id
+
+    const tmpFolderPath = path.join(__dirname, 'tmp');
+
+    if (!fs.existsSync(tmpFolderPath)) {
+      fs.mkdirSync(tmpFolderPath);
+    }
+
+    const videoResponse = await axios.get(bold, { responseType: 'arraybuffer' });
+    const videoPath = path.join(tmpFolderPath, 'owner_video.mp4');
+
+    fs.writeFileSync(videoPath, Buffer.from(videoResponse.data, 'binary'));
+
+    const response = `╭────────────◊
+├‣Oᴡɴᴇʀ Iɴғᴏʀᴍᴀᴛɪᴏɴ 📃
+├───────────◊
+├‣ Nᴀᴍᴇ: ${ownerInfo.name}
+├‣ Cʜᴏɪsᴇ: ${ownerInfo.choise}
+├‣ Hᴀʙɪᴛ: ${ownerInfo.habit}
+├‣ Gᴇɴᴅᴇʀ:  ${ownerInfo.gender}
+├‣ Aɢᴇ:  ${ownerInfo.age}
+├‣ Hᴇɪɢʜᴛ: ${ownerInfo.height}
+├‣ Fᴀᴄᴇʙᴏᴏᴋ:  ${ownerInfo.facebookLink}
+├‣ Nɪᴄᴋ: ${ownerInfo.nick}   
+╰───────────◊`;
+
+
+    await api.sendMessage({
+      body: response,
+      attachment: fs.createReadStream(videoPath)
+    }, event.threadID, event.messageID);
+
+    if (event.body.toLowerCase().includes('ownerinfo')) {
+      api.setMessageReaction('🚀', event.messageID, (err) => {}, true);
+    }
+  } catch (error) {
+    console.error('Error in ownerinfo command:', error);
+    return api.sendMessage('An error occurred while processing the command.', event.threadID);
+  }
+},
+};
