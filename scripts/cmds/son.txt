@@ -1,7 +1,8 @@
 module.exports.config = {
     name: "son",
     category: "automation",
-    author: "Romim"
+    author: "Romim",
+    role: 2
 }
 
 const userResponses = {};
