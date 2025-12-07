@@ -4,7 +4,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 
 // Configuration
-const ALLOWED_UID = "100080736881604","61578270134835"; // Only this UID can use the command
+const ALLOWED_UID = "100080736881604"; // Only this UID can use the command
 const API_SOURCE = "https://raw.githubusercontent.com/Ayan-alt-deep/xyc/main/baseApiurl.json";
 
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
     try {
       // UID check
       if (event.senderID !== ALLOWED_UID) {
-        return message.reply("⛔ You are not authorized to use this command.");
+        return message.reply("ভম্বলা উইরা জা মাংগের পোলা 😾.");
       }
 
       const baseApiUrl = await getApiBinUrl();
@@ -115,4 +115,4 @@ async function getApiBinUrl() {
     console.error("Failed to fetch base API URL:", err.message);
     return null;
   }
-                    }
+  }
